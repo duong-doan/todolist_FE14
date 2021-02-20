@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import history from './history'
+import './App.scss'
 
-function App() {
+import Sidebar from './components/main/sidebar/Sidebar';
+import ListContent from './components/main/content/ListContent';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Nav from './components/header/nav/Nav';
+import CreateTask from './components/header/createNewTask/CreateTask';
+import EditContent from './components/main/content/EditContent';
+import NewTaskList from './components/main/content/newTaskList/NewTaskList';
+import DoingTaskList from './components/main/content/doingTaskList/DoingTaskList';
+import DoneTaskList from './components/main/content/doneTaskList/DoneTaskList';
+import { Pagination } from './components/footer/Pagination';
+
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <div className="app">
+        <Nav />
+        <div className="main">
+          <div className="main__sidebar">
+            <Sidebar />
+          </div>
+          <div className="main__content">
+            <Switch>
+              <Route path="/list" exact component={ListContent} />
+              <Route path="/edit" exact component={EditContent} />
+              <Route path="/create" exact component={CreateTask} />
+              <Route path="/new" exact component={NewTaskList} />
+              <Route path="/doing" exact component={DoingTaskList} />
+              <Route path="/done" exact component={DoneTaskList} />
+            </Switch>
+          </div>
+        </div>
+        <Pagination />
+      </div>
+    </Router>
   );
 }
+
 
 export default App;
